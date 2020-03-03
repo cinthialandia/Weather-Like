@@ -13,7 +13,12 @@ h4 {
   text-align: center;
 }
 
-img {
-  width: 30%;
-  height: auto;
+.wi {
+  display: block;
+  text-align: center;
+  font-size: 50px;
+}
+
+p {
+  text-align: center;
 }
