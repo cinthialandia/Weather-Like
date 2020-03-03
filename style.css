@@ -1,0 +1,19 @@
+body {
+  background-color: #5a5da6;
+  padding: 30px;
+  color: #101028;
+  font-family: "Quicksand";
+  color: whitesmoke;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-align: center;
+}
+
+img {
+  width: 30%;
+  height: auto;
+}
