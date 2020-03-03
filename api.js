@@ -1,11 +1,12 @@
 const WEATHER_API_URL = "http://api.openweathermap.org/data/2.5/weather";
-const ULTRAVIOLET_API_URL = "http://api.openweathermap.org/data/2.5/uvi?appid=";
+const ULTRAVIOLET_API_URL = "http://api.openweathermap.org/data/2.5/uvi";
 const API_ID = "849b886201ff69a029a2a86bc89f394a";
 
 export async function getCityWeather(city = "sydney", state = "nsw") {
   const requestURL = `${WEATHER_API_URL}?q=${city},${state}&appid=${API_ID}`;
   const response = await fetch(requestURL);
   const weather = await response.json();
+  // lat and lon
 
   // pasar temperaturas a C
   weather.main_c = {
@@ -45,15 +46,15 @@ function convertKelvinToFahrenheit(temperature) {
   return Math.floor(kelvinTofahrenheit);
 }
 
-async function getUltravioletIndex(lat, lon) {
-  async function getLatAndLon() {
-    const weather = await getCityWeather();
-    const lat = weather.coord.lat;
-    const lon = weather.coord.lon;
-  }
-  getLatAndLon();
+export async function getUltravioletIndex(lat, lon) {
+  const requestURL = `${ULTRAVIOLET_API_URL}?appid=${API_ID}&lat=${lat}&lon=${lon}`;
+  const response = await fetch(requestURL);
+  const ultravioletIndex = await response.json();
+  return ultravioletIndex;
 }
 
-getUltravioletIndex();
-
-//const requestURL = `${ULTRAVIOLET_API_URL}${API_ID}&lat=${lat}&lon=${lon}`;
+// export async function get(city = "sydney", state = "nsw") {
+//   const requestURL = `${WEATHER_API_URL}?q=${city},${state}&appid=${API_ID}`;
+//   const response = await fetch(requestURL);
+//   const weather = await response.json();
+// }
