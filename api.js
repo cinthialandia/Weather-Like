@@ -17,8 +17,8 @@ export const ICON_OBJECT = {
   "10n": "wi-night-alt-rain-wind",
   "11d": "wi-day-storm-showers",
   "11n": "wi-night-alt-storm-showers",
-  "13d": "wi-thermometer-exterior",
-  "13n": "wi-thermometer-exterior",
+  "13d": "wi-snowflake-cold",
+  "13n": "wi-snowflake-cold",
   "50d": "wi-fog",
   "50n": "wi-fog"
 };
@@ -27,7 +27,6 @@ export async function getCityWeather(city = "melbourne", state = "vic") {
   const requestURL = `${WEATHER_API_URL}?q=${city},${state}&appid=${API_ID}`;
   const response = await fetch(requestURL);
   const weather = await response.json();
-  // lat and lon
 
   // pasar temperaturas a C
   weather.main_c = {
