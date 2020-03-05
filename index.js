@@ -8,7 +8,7 @@ const getMaxAndMinTemperatureElm = document.querySelector(
 );
 const getUvVIndexElm = document.querySelector(".UvVbIndex");
 const getDescriptionElm = document.querySelector(".description");
-const switchButtonElm = document.querySelector(".switch");
+const switchButtonElm = document.querySelector(".coso");
 
 async function init() {
   const weather = await getCityWeather();
@@ -17,7 +17,7 @@ async function init() {
   const ultravioletIndex = await getUltravioletIndex(lat, lon);
   const ultravioletIndexMath = Math.floor(ultravioletIndex.value);
   const iconToShow = ICON_OBJECT[weather.weather[0].icon];
-  console.log(iconToShow);
+  const description = weather.weather[0].description;
 
   //Inyectando el nombre de la ciudad
   getCityNameElm.innerHTML = weather.name;
@@ -30,20 +30,29 @@ async function init() {
   //inyectando la imagen del coso
   getWeatherImgElm.innerHTML = `<i class="wi ${iconToShow}"></i>`;
   //Inyectando la descripcion del clima
-  const description = weather.weather[0].description;
   getDescriptionElm.innerHTML = description;
 
-  console.log(description);
-  console.log(weather);
+  //console.log(weather);
 }
 
 init();
 
-// switchButtonElm.addEventListener("click", handleSwitch);
+switchButtonElm.addEventListener("input", handleSwitch);
 
-// function handleSwitch(e) {
-//   const evento = e.target;
-//   //inyectando la temperatura
-//   getTemperatureElm.innerHTML = `${weather.main_f.temp}°`;
-//   console.log(evento);
-// }
+async function handleSwitch(e) {
+  console.log(e.target.checked);
+
+  if (e.target.checked === true) {
+    const weather = await getCityWeather();
+    //inyectando la temperatura
+    getTemperatureElm.innerHTML = `${weather.main_f.temp}°`;
+    //inyectando la temperatura min y max
+    getMaxAndMinTemperatureElm.innerHTML = `${weather.main_f.temp_min}° / ${weather.main_f.temp_max}°`;
+  } else {
+    const weather = await getCityWeather();
+    //inyectando la temperatura
+    getTemperatureElm.innerHTML = `${weather.main_c.temp}°`;
+    //inyectando la temperatura min y max
+    getMaxAndMinTemperatureElm.innerHTML = `${weather.main_c.temp_min}° / ${weather.main_c.temp_max}°`;
+  }
+}
