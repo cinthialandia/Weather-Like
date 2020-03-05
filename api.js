@@ -2,7 +2,28 @@ const WEATHER_API_URL = "http://api.openweathermap.org/data/2.5/weather";
 const ULTRAVIOLET_API_URL = "http://api.openweathermap.org/data/2.5/uvi";
 const API_ID = "849b886201ff69a029a2a86bc89f394a";
 
-export async function getCityWeather(city = "sydney", state = "nsw") {
+export const ICON_OBJECT = {
+  "01d": "wi-day-sunny",
+  "01n": "wi-night-clear",
+  "02d": "wi-day-cloudy",
+  "02n": "wi-night-alt-cloudy",
+  "03d": "wi-night-alt-partly-cloudy",
+  "03n": "wi-night-cloudy",
+  "04d": "wi-cloudy",
+  "04n": "wi-cloudy",
+  "09d": "wi-day-rain-mix",
+  "09n": "wi-night-alt-showers",
+  "10d": "wi-day-rain",
+  "10n": "wi-night-alt-rain-wind",
+  "11d": "wi-day-storm-showers",
+  "11n": "wi-night-alt-storm-showers",
+  "13d": "wi-thermometer-exterior",
+  "13n": "wi-thermometer-exterior",
+  "50d": "wi-fog",
+  "50n": "wi-fog"
+};
+
+export async function getCityWeather(city = "melbourne", state = "vic") {
   const requestURL = `${WEATHER_API_URL}?q=${city},${state}&appid=${API_ID}`;
   const response = await fetch(requestURL);
   const weather = await response.json();
