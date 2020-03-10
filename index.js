@@ -14,10 +14,19 @@ const getMaxAndMinTemperatureElm = document.querySelector(
 );
 const getUvVIndexElm = document.querySelector(".UvVbIndex");
 const getDescriptionElm = document.querySelector(".description");
-const switchButtonElm = document.querySelector(".coso");
+const switchButtonElm = document.querySelector("#switchButton");
+let dropdown = document.getElementById("locality-dropdown");
+let dropdownCity = document.getElementById("locality-dropdown-city");
 
-async function init() {
-  const weather = await getCityWeather();
+async function renderWeather() {
+  const country = dropdown.value;
+  const city = dropdownCity.value;
+
+  if (!country || !city) {
+    return;
+  }
+
+  const weather = await getCityWeather(country, city);
   const lat = weather.coord.lat;
   const lon = weather.coord.lon;
   const ultravioletIndex = await getUltravioletIndex(lat, lon);
@@ -27,52 +36,41 @@ async function init() {
 
   //Inyectando el nombre de la ciudad
   getCityNameElm.innerHTML = weather.name;
-  //inyectando la temperatura
-  getTemperatureElm.innerHTML = `${weather.main_c.temp}°`;
-  //inyectando la temperatura min y max
-  getMaxAndMinTemperatureElm.innerHTML = `${weather.main_c.temp_min}° / ${weather.main_c.temp_max}°`;
   //inyectando el ultraviolet UV VB
   getUvVIndexElm.innerHTML = `${ultravioletIndexMath}`;
   //inyectando la imagen del coso
   getWeatherImgElm.innerHTML = `<i class="wi ${iconToShow}"></i>`;
   //Inyectando la descripcion del clima
   getDescriptionElm.innerHTML = description;
-
-  //console.log(weather);
-}
-
-init();
-
-switchButtonElm.addEventListener("input", handleSwitch);
-
-async function handleSwitch(e) {
-  console.log(e.target.checked);
-
-  if (e.target.checked === true) {
-    const weather = await getCityWeather();
+  console.log(switchButtonElm);
+  if (switchButtonElm.checked) {
     //inyectando la temperatura
     getTemperatureElm.innerHTML = `${weather.main_f.temp}°`;
     //inyectando la temperatura min y max
     getMaxAndMinTemperatureElm.innerHTML = `${weather.main_f.temp_min}° / ${weather.main_f.temp_max}°`;
   } else {
-    const weather = await getCityWeather();
     //inyectando la temperatura
     getTemperatureElm.innerHTML = `${weather.main_c.temp}°`;
     //inyectando la temperatura min y max
     getMaxAndMinTemperatureElm.innerHTML = `${weather.main_c.temp_min}° / ${weather.main_c.temp_max}°`;
   }
+
+  //console.log(weather);
 }
+
+switchButtonElm.addEventListener("input", renderWeather);
 
 // Agregando selector de pais
 async function addCountriesToSelect() {
   //obtener la api
   const countries = await getCountries();
+
   //obtener el selector y ponerlo en blanco
-  let dropdown = document.getElementById("locality-dropdown");
   dropdown.length = 0;
   //seleccionar los valores del selector y poner como default escoger el pais
   let defaultOption = document.createElement("option");
   defaultOption.text = "Choose country";
+  defaultOption.value = "";
 
   dropdown.add(defaultOption);
   dropdown.selectedIndex = 0;
@@ -80,23 +78,31 @@ async function addCountriesToSelect() {
   countries.forEach(country => {
     let option = document.createElement("option");
     option.text = country.name;
+    option.value = country.sortname;
     dropdown.add(option);
   });
 }
 
 addCountriesToSelect();
 
+// escuchar el evento del primer selector de paises
+dropdown.addEventListener("change", updateValueCountry);
+//funcion de callback del evento escuchado
+function updateValueCountry(e) {
+  const countrySelected = e.target.value;
+  addCitiesToSelect(countrySelected);
+}
+
 //agregando selector de ciudad
-async function addCitiesToSelect() {
-  //obtener la api
-  const cities = await getCities();
-  console.log(cities);
+async function addCitiesToSelect(country) {
+  const cities = await getCities(country);
+
   //obtener el selector y ponerlo en blanco
-  let dropdownCity = document.getElementById("locality-dropdown-city");
   dropdownCity.length = 0;
   //seleccionar los valores del selector y poner como default escoger el pais
   let defaultOption = document.createElement("option");
   defaultOption.text = "Choose city";
+  defaultOption.value = "";
 
   dropdownCity.add(defaultOption);
   dropdownCity.selectedIndex = 0;
@@ -104,8 +110,13 @@ async function addCitiesToSelect() {
   cities.forEach(city => {
     let option = document.createElement("option");
     option.text = city.name;
+    option.value = city.name;
     dropdownCity.add(option);
   });
 }
 
-addCitiesToSelect();
+dropdownCity.addEventListener("change", updateValueCity);
+
+function updateValueCity(e) {
+  renderWeather();
+}

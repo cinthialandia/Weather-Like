@@ -23,7 +23,7 @@ export const ICON_OBJECT = {
   "50n": "wi-fog"
 };
 
-export async function getCityWeather(city = "buenos aires", country = "ar") {
+export async function getCityWeather(country, city) {
   const requestURL = `${WEATHER_API_URL}?q=${city},${country}&appid=${API_ID}`;
   const response = await fetch(requestURL);
   const weather = await response.json();
@@ -81,9 +81,8 @@ export async function getCountries() {
   return countries;
 }
 
-export async function getCities() {
-  const requestURL =
-    "https://us-central1-countries-and-cities-api.cloudfunctions.net/api/countries/AU/cities";
+export async function getCities(country) {
+  const requestURL = `https://us-central1-countries-and-cities-api.cloudfunctions.net/api/countries/${country}/cities`;
   const response = await fetch(requestURL);
   const cities = await response.json();
   return cities;
