@@ -14,6 +14,23 @@
     <link rel="stylesheet" href="style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather like!</title>
+  </head>
+  <body>
+    <!-- drop selector -->
+    <label for="pet-select">Choose a pet:</label>
+
+    <select name="pets" id="pet-select">
+      <option value="">--Please choose an option--</option>
+      <option value="dog">Dog</option>
+      <option value="cat">Cat</option>
+      <option value="hamster">Hamster</option>
+      <option value="parrot">Parrot</option>
+      <option value="spider">Spider</option>
+      <option value="goldfish">Goldfish</option>
+    </select>
+
+    <!-- drop selector -->
+    <!-- title -->
     <h1 class="cityName">City</h1>
     <i class="wi"></i>
     <!-- Switch -->
@@ -30,9 +47,6 @@
     <p class="maxAndMinTemperature"></p>
     <h5>UV INDEX</h5>
     <h5 class="UvVbIndex"></h5>
-  </head>
-
-  <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="./index.js" type="module"></script>
   </body>

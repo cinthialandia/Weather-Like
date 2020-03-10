@@ -56,3 +56,5 @@ async function handleSwitch(e) {
     getMaxAndMinTemperatureElm.innerHTML = `${weather.main_c.temp_min}° / ${weather.main_c.temp_max}°`;
   }
 }
+
+// cosa de input

@@ -23,8 +23,8 @@ export const ICON_OBJECT = {
   "50n": "wi-fog"
 };
 
-export async function getCityWeather(city = "melbourne", state = "vic") {
-  const requestURL = `${WEATHER_API_URL}?q=${city},${state}&appid=${API_ID}`;
+export async function getCityWeather(city = "buenos aires", country = "ar") {
+  const requestURL = `${WEATHER_API_URL}?q=${city},${country}&appid=${API_ID}`;
   const response = await fetch(requestURL);
   const weather = await response.json();
 
@@ -73,8 +73,22 @@ export async function getUltravioletIndex(lat, lon) {
   return ultravioletIndex;
 }
 
-// export async function get(city = "sydney", state = "nsw") {
-//   const requestURL = `${WEATHER_API_URL}?q=${city},${state}&appid=${API_ID}`;
+// async function getCountries() {
+//   const requestURL =
+//     "https://us-central1-countries-and-cities-api.cloudfunctions.net/api/countries";
 //   const response = await fetch(requestURL);
-//   const weather = await response.json();
+//   const countries = await response.json();
+//   console.log(countries);
 // }
+
+// getCountries();
+
+// async function getCities() {
+//   const requestURL =
+//     "https://us-central1-countries-and-cities-api.cloudfunctions.net/api/countries/AU/cities";
+//   const response = await fetch(requestURL);
+//   const countries = await response.json();
+//   console.log(countries);
+// }
+
+// getCities();
