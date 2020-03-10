@@ -73,22 +73,18 @@ export async function getUltravioletIndex(lat, lon) {
   return ultravioletIndex;
 }
 
-// async function getCountries() {
-//   const requestURL =
-//     "https://us-central1-countries-and-cities-api.cloudfunctions.net/api/countries";
-//   const response = await fetch(requestURL);
-//   const countries = await response.json();
-//   console.log(countries);
-// }
+export async function getCountries() {
+  const requestURL =
+    "https://us-central1-countries-and-cities-api.cloudfunctions.net/api/countries";
+  const response = await fetch(requestURL);
+  const countries = await response.json();
+  return countries;
+}
 
-// getCountries();
-
-// async function getCities() {
-//   const requestURL =
-//     "https://us-central1-countries-and-cities-api.cloudfunctions.net/api/countries/AU/cities";
-//   const response = await fetch(requestURL);
-//   const countries = await response.json();
-//   console.log(countries);
-// }
-
-// getCities();
+export async function getCities() {
+  const requestURL =
+    "https://us-central1-countries-and-cities-api.cloudfunctions.net/api/countries/AU/cities";
+  const response = await fetch(requestURL);
+  const cities = await response.json();
+  return cities;
+}

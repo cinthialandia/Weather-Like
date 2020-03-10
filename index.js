@@ -1,4 +1,10 @@
-import { getCityWeather, getUltravioletIndex, ICON_OBJECT } from "./api.js";
+import {
+  getCityWeather,
+  getUltravioletIndex,
+  ICON_OBJECT,
+  getCountries,
+  getCities
+} from "./api.js";
 
 const getCityNameElm = document.querySelector(".cityName");
 const getWeatherImgElm = document.querySelector(".wi");
@@ -57,4 +63,49 @@ async function handleSwitch(e) {
   }
 }
 
-// cosa de input
+// Agregando selector de pais
+async function addCountriesToSelect() {
+  //obtener la api
+  const countries = await getCountries();
+  //obtener el selector y ponerlo en blanco
+  let dropdown = document.getElementById("locality-dropdown");
+  dropdown.length = 0;
+  //seleccionar los valores del selector y poner como default escoger el pais
+  let defaultOption = document.createElement("option");
+  defaultOption.text = "Choose country";
+
+  dropdown.add(defaultOption);
+  dropdown.selectedIndex = 0;
+
+  countries.forEach(country => {
+    let option = document.createElement("option");
+    option.text = country.name;
+    dropdown.add(option);
+  });
+}
+
+addCountriesToSelect();
+
+//agregando selector de ciudad
+async function addCitiesToSelect() {
+  //obtener la api
+  const cities = await getCities();
+  console.log(cities);
+  //obtener el selector y ponerlo en blanco
+  let dropdownCity = document.getElementById("locality-dropdown-city");
+  dropdownCity.length = 0;
+  //seleccionar los valores del selector y poner como default escoger el pais
+  let defaultOption = document.createElement("option");
+  defaultOption.text = "Choose city";
+
+  dropdownCity.add(defaultOption);
+  dropdownCity.selectedIndex = 0;
+
+  cities.forEach(city => {
+    let option = document.createElement("option");
+    option.text = city.name;
+    dropdownCity.add(option);
+  });
+}
+
+addCitiesToSelect();
