@@ -35,4 +35,31 @@ p {
   text-align: center;
 }
 
+.switch label input[type="checkbox"]:checked + .lever {
+  background-color: #9b999b;
+}
+
+.switch label input[type="checkbox"]:checked + .lever:after {
+  background-color: #7e7d7d;
+}
+
+label {
+  font-size: 1.2rem;
+  color: #f8f5f5;
+}
+
 /* Dropdown Button */
+.container-dropdown {
+  display: flex;
+  justify-content: space-between;
+}
+
+#locality-dropdown {
+  margin: 20px;
+  max-width: 50%;
+}
+
+#locality-dropdown-city {
+  margin: 20px;
+  max-width: 50%;
+}
