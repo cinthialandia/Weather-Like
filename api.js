@@ -1,5 +1,5 @@
-const WEATHER_API_URL = "http://api.openweathermap.org/data/2.5/weather";
-const ULTRAVIOLET_API_URL = "http://api.openweathermap.org/data/2.5/uvi";
+const WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather";
+const ULTRAVIOLET_API_URL = "https://api.openweathermap.org/data/2.5/uvi";
 const API_ID = "849b886201ff69a029a2a86bc89f394a";
 
 //icons to render on the screen according to the weather
@@ -21,7 +21,7 @@ export const ICON_OBJECT = {
   "13d": "wi-snowflake-cold",
   "13n": "wi-snowflake-cold",
   "50d": "wi-fog",
-  "50n": "wi-fog"
+  "50n": "wi-fog",
 };
 //function that makes the request to the api with the weather information
 export async function getCityWeather(country, city) {
@@ -35,7 +35,7 @@ export async function getCityWeather(country, city) {
     temp: convertKelvinToCelsius(weather.main.temp),
     feels_like: convertKelvinToCelsius(weather.main.temp),
     temp_min: convertKelvinToCelsius(weather.main.temp_min),
-    temp_max: convertKelvinToCelsius(weather.main.temp_max)
+    temp_max: convertKelvinToCelsius(weather.main.temp_max),
   };
 
   //temperature converted to F
@@ -44,7 +44,7 @@ export async function getCityWeather(country, city) {
     temp: convertKelvinToFahrenheit(weather.main.temp),
     feels_like: convertKelvinToFahrenheit(weather.main.temp),
     temp_min: convertKelvinToFahrenheit(weather.main.temp_min),
-    temp_max: convertKelvinToFahrenheit(weather.main.temp_max)
+    temp_max: convertKelvinToFahrenheit(weather.main.temp_max),
   };
 
   return weather;
